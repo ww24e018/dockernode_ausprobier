@@ -1,9 +1,14 @@
-FROM node:23
+FROM node:23-alpine
 
 WORKDIR /myapp
 
-# https://docs.docker.com/reference/dockerfile/#run
-RUN <<EOF
-npm init
+COPY package.json .
 
-EOF
+# https://docs.docker.com/reference/dockerfile/#run
+RUN npm install
+
+COPY app.js .
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]
